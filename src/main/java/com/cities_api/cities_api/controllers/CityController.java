@@ -10,13 +10,25 @@ import java.util.ArrayList;
 @RestController
 public class CityController {
 
-    @GetMapping("/country_name/{countryName}")
-    public CitiesRes getCitiesOfCountry(@PathVariable("countryName") String countryName){
+    // TODO MONGODB CONNECTION
+
+    @GetMapping("/country/get_cities/{countryName}")
+    public CitiesRes getCitiesOfCountryByName(@PathVariable("countryName") String countryName){
         ArrayList<City> cities = new ArrayList<>();
-        cities.add(new City("istanbul", 23542312));
-        cities.add(new City("ankara", 1403005));
+        cities.add(new City("istanbul"));
+        cities.add(new City("ankara"));
         CitiesRes res = new CitiesRes(cities, new Country(countryName));
         return res;
+    }
+
+    @GetMapping("/country/get_country_information/{countryName}")
+    public Country getCountryByName(@PathVariable String countryName){
+        return new Country(countryName);
+    }
+
+    @GetMapping("/city/{cityName}")
+    public City getCityByName(@PathVariable("cityName") String cityName){
+        return new City("istanbul", 23542312, 30, 40);
     }
 
 }
